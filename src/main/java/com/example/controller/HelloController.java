@@ -1,5 +1,4 @@
 package com.example.controller;
-// TODO: review use of 'EnvConfigUtil'
 import com.example.util.EnvConfigUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,7 +8,6 @@ import reactor.core.publisher.Mono;
 @RestController
 public class HelloController {
     @Autowired
-// TODO: review use of 'EnvConfigUtil'
     private EnvConfigUtil envConfigUtil;
 
         // Non-reactive endpoint
@@ -21,11 +19,10 @@ public class HelloController {
 
         // Reactive endpoint
         @GetMapping("/reactive")
-        // REFACTORED: Reactive Method to Non Reactive method
-        public String reactiveEndpoint() {
+        public Mono<String> reactiveEndpoint() {
             String value = envConfigUtil.getProperty("app.name");
-            return "Reactive response: " + value;
-            }
+            return Mono.just("Reactive response: " + value);
+        }
     }
 
 
